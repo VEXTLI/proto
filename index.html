@@ -10,14 +10,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#493225;
-    --bg-deep:#2E1F17;
-    --text:#F5E9E1;
-    --text-muted:#C9B4A8;
-    --terracotta:#D38A77;
-    --terracotta-dark:#B5674F;
-    --mauve:#A5847D;
-    --blush:#E4C8C0;
+    --ink:#2b1d15;
+    --ink-mid:#493225;
+    --cream:#F6EAE4;
+    --terracotta:#d38a77;
+    --mauve:#a5847d;
+    --blush:#e4c8c0;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   body{
@@ -25,39 +23,37 @@
     min-height:100svh;
     position:relative;
     background:
-      radial-gradient(50% 40% at 15% 0%, rgba(211,138,119,0.18) 0%, transparent 60%),
-      radial-gradient(55% 45% at 100% 15%, rgba(165,132,125,0.16) 0%, transparent 60%),
-      radial-gradient(60% 50% at 50% 100%, rgba(228,200,192,0.10) 0%, transparent 65%),
-      linear-gradient(160deg, #3D2A20, var(--bg) 45%, var(--bg-deep));
-    color:var(--text);
+      radial-gradient(55% 35% at 12% 0%, rgba(211,138,119,0.14) 0%, transparent 60%),
+      radial-gradient(50% 35% at 100% 8%, rgba(165,132,125,0.16) 0%, transparent 60%),
+      radial-gradient(70% 45% at 50% 100%, rgba(73,50,37,0.35) 0%, transparent 65%),
+      linear-gradient(160deg, #33241a, var(--ink) 45%, #1f140e);
+    color:var(--cream);
     font-family:'Inter', sans-serif;
     overflow-x:hidden;
   }
   a{color:inherit; text-decoration:none;}
 
-  
   body::before{
     content:"";
     position:fixed;
     inset:0;
     z-index:0;
     pointer-events:none;
-    opacity:0.18;
+    opacity:0.4;
     mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.83 0 0 0 0 0.65 0 0 0 0 0.55 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  
   .leaf{
     position:fixed;
     z-index:0;
     pointer-events:none;
-    opacity:0.18;
+    opacity:0.16;
     filter:blur(0.3px);
   }
   .leaf svg{display:block; width:100%; height:100%;}
   .leaf.tl{ top:-40px; left:-60px; width:230px; height:230px; color:var(--mauve); transform:rotate(-18deg); }
-  .leaf.tr{ top:-20px; right:-70px; width:200px; height:200px; color:var(--terracotta); transform:rotate(25deg) scaleX(-1); }
+  .leaf.tr{ top:-20px; right:-70px; width:200px; height:200px; color:var(--ink-mid); transform:rotate(25deg) scaleX(-1); }
   .leaf.br{ bottom:-60px; right:-50px; width:260px; height:260px; color:var(--terracotta); transform:rotate(-10deg); }
   .leaf.bl{ bottom:20px; left:-80px; width:190px; height:190px; color:var(--mauve); transform:rotate(40deg) scaleX(-1); }
 
@@ -81,6 +77,35 @@
     padding:52px 20px 60px;
   }
 
+  .avatar{
+    position:relative;
+    width:98px;
+    height:98px;
+    margin:0 auto 20px;
+    border-radius:50%;
+    background:linear-gradient(160deg, #3a281d, var(--ink));
+    box-shadow:0 0 0 4px #2b1d15, 0 14px 28px -10px rgba(211,138,119,0.3);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-variation-settings:'opsz' 144;
+    font-size:32px;
+    color:var(--blush);
+    animation:riseIn 0.6s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .avatar::after{
+    content:"";
+    position:absolute;
+    inset:-6px;
+    border-radius:50%;
+    background:conic-gradient(from 180deg, var(--terracotta), var(--blush), var(--mauve), var(--ink-mid), var(--terracotta));
+    z-index:-1;
+    opacity:0.9;
+    animation:floatBlob 6s ease-in-out infinite;
+  }
+
   h1{
     font-family:'Fraunces', serif;
     font-style:normal;
@@ -99,7 +124,7 @@
     text-align:center;
     font-size:13.5px;
     font-weight:500;
-    color:var(--text-muted);
+    color:#cbb6ab;
     margin:0 0 34px;
     animation:riseIn 0.6s 0.1s cubic-bezier(.2,.8,.2,1) both;
   }
@@ -164,17 +189,19 @@
   .links > *:nth-child(5){animation-delay:0.24s;}
   .links > *:nth-child(6){animation-delay:0.28s;}
 
-  .link.menu{ background:linear-gradient(135deg, var(--terracotta), var(--bg)); }
-  .link.wa{ background:linear-gradient(135deg, var(--terracotta), var(--terracotta-dark)); }
-  .link.ig{ background:linear-gradient(135deg, var(--blush) 0%, var(--terracotta) 55%, var(--mauve) 100%); }
-  .link.wifi{ background:linear-gradient(135deg, var(--mauve), var(--bg)); }
+  .link.menu{ background:linear-gradient(135deg, var(--terracotta), var(--mauve)); }
+  .link.wa{ background:linear-gradient(135deg, #6b4a35, var(--ink-mid)); }
+  .link.ig{ background:linear-gradient(160deg, #f3e2da, var(--blush)); color:var(--ink); }
+  .link.ig .link-sub{ color:rgba(43,29,21,0.65); }
+  .link.ig .icon{ background:rgba(43,29,21,0.08); }
+  .link.wifi{ background:linear-gradient(135deg, var(--mauve), #6b4a35); }
 
   .wifi-panel{
     display:none;
     margin-top:-2px;
     padding:18px;
     border-radius:18px;
-    background:linear-gradient(160deg, #FFFFFF, #FAF5E6);
+    background:linear-gradient(160deg, var(--blush), #d9b7ac);
     box-shadow:0 12px 26px -16px rgba(44,36,22,0.35);
     animation:riseIn 0.3s cubic-bezier(.2,.8,.2,1) both;
   }
@@ -184,15 +211,15 @@
     justify-content:space-between;
     align-items:center;
     padding:9px 0;
-    border-bottom:1px solid #EAD9D2;
+    border-bottom:1px solid rgba(43,29,21,0.12);
     font-size:14px;
   }
   .wifi-row:last-of-type{border-bottom:none;}
-  .wifi-label{color:var(--mauve); font-weight:500;}
-  .wifi-value{font-weight:700; color:var(--bg);}
+  .wifi-label{color:#6b4a35; font-weight:500;}
+  .wifi-value{font-weight:700; color:var(--ink);}
   .copy-btn{
     border:none;
-    background:var(--bg);
+    background:var(--ink-mid);
     color:#fff;
     font-size:12px;
     font-weight:600;
@@ -208,7 +235,7 @@
     gap:8px;
     margin-top:14px;
     padding-top:14px;
-    border-top:1px solid #EAD9D2;
+    border-top:1px solid rgba(43,29,21,0.12);
   }
   #wifi-qr{
     padding:10px;
@@ -218,12 +245,12 @@
   }
   .wifi-hint{
     font-size:11.5px;
-    color:var(--mauve);
+    color:#9a8f74;
     text-align:center;
     max-width:26ch;
   }
 
-  .link.review{ background:linear-gradient(135deg, var(--mauve), var(--terracotta-dark)); }
+  .link.review{ background:linear-gradient(135deg, var(--ink-mid), #6b4a35); }
 
   .icon{
     flex:0 0 auto;
@@ -268,7 +295,7 @@
     margin-top:44px;
     font-size:11.5px;
     font-weight:500;
-    color:var(--text-muted);
+    color:#a8927f;
     letter-spacing:0.04em;
     animation:riseIn 0.6s 0.36s cubic-bezier(.2,.8,.2,1) both;
   }
@@ -302,31 +329,12 @@
 </div>
 
 <main>
+  <div class="avatar">U</div>
   <h1>Uma</h1>
   <p class="tagline">Desayunos, panes, pizzas y más — Querétaro</p>
 
   <div class="links">
 
-   
-    <a class="link menu" href="https://vextli.github.io/UMA/">
-      <span class="icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M4 4v16M4 4h9a3 3 0 0 1 3 3v10a3 3 0 0 0-3-3H4"/>
-          <path d="M14 8h6M14 12h6M14 16h4"/>
-        </svg>
-      </span>
-      <span class="link-text">
-        <p class="link-title">Ver el menú</p>
-        <p class="link-sub">Carta completa</p>
-      </span>
-      <span class="chevron" aria-hidden="true">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 6l6 6-6 6"/>
-        </svg>
-      </span>
-    </a>
-
-    <!-- 👉👉👉 WIFI: reemplaza el nombre de la red y la contraseña más abajo, en el <script> (busca WIFI_SSID y WIFI_PASSWORD) 👈👈👈 -->
     <button class="link wifi" type="button" id="wifiToggle" aria-expanded="false" aria-controls="wifiPanel">
       <span class="icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -349,11 +357,11 @@
 
     <div class="wifi-panel" id="wifiPanel">
       <div class="wifi-row">
-        <span class="wifi-label">RD</span>
-        <span class="wifi-value" id="wifiSSIDText">pjncehvehcu </span>
+        <span class="wifi-label">Red</span>
+        <span class="wifi-value" id="wifiSSIDText">Umacafemx_2.4G</span>
       </div>
       <div class="wifi-row">
-        <span class="wifi-label">Contraseña: disfrutaDuma</span>
+        <span class="wifi-label">Contraseña</span>
         <button class="copy-btn" type="button" id="copyPassBtn">Copiar</button>
       </div>
       <div class="wifi-qr-wrap">
@@ -362,7 +370,24 @@
       </div>
     </div>
 
-   
+    <a class="link menu" href="../">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M4 4v16M4 4h9a3 3 0 0 1 3 3v10a3 3 0 0 0-3-3H4"/>
+          <path d="M14 8h6M14 12h6M14 16h4"/>
+        </svg>
+      </span>
+      <span class="link-text">
+        <p class="link-title">Ver el menú</p>
+        <p class="link-sub">Carta completa</p>
+      </span>
+      <span class="chevron" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 6l6 6-6 6"/>
+        </svg>
+      </span>
+    </a>
+
     <a class="link wa" href="https://wa.me/524461038687" target="_blank" rel="noopener">
       <span class="icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="currentColor">
@@ -380,8 +405,7 @@
       </span>
     </a>
 
-    <!-- 👉👉👉 INSTAGRAM: reemplaza el link (href) y el @usuario que se muestra abajo 👈👈👈 -->
-    <a class="link ig" href="https://instagram.com/uma" target="_blank" rel="noopener">
+    <a class="link ig" href="https://www.instagram.com/umacafemx/" target="_blank" rel="noopener">
       <span class="icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
           <rect x="3" y="3" width="18" height="18" rx="5"/>
@@ -391,7 +415,7 @@
       </span>
       <span class="link-text">
         <p class="link-title">Instagram</p>
-        <p class="link-sub">@uma</p> <!-- 👈 cambia también el @usuario que se muestra aquí -->
+        <p class="link-sub">@umacafemx</p>
       </span>
       <span class="chevron" aria-hidden="true">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -400,8 +424,7 @@
       </span>
     </a>
 
-    <!-- 👉👉👉 RESEÑA: reemplaza con tu link real de reseñas de Google (Google Business Profile → Compartir reseña) 👈👈👈 -->
-    <a class="link review" href="https://g.page/r/XXXXXXXXXXXX/review" target="_blank" rel="noopener">
+    <a class="link review" href="https://www.google.com/maps/place/UMA+caf%C3%A9/@20.5651291,-100.3721446,17z/data=!4m8!3m7!1s0x85d344950989be8f:0x3b5682a64838b4a7!8m2!3d20.5651291!4d-100.3695697!9m1!1b1!16s%2Fg%2F11b_1m8bcw?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">
       <span class="icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.6l-5.9 3.1 1.2-6.6-4.8-4.6 6.6-.9L12 2.5z"/>
@@ -425,9 +448,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-  // 👉👉👉 WIFI: reemplaza estos dos valores con los datos reales del WiFi 👈👈👈
-  const WIFI_SSID = "NOMBRE_DEL_WIFI";
-  const WIFI_PASSWORD = "CONTRASEÑA_AQUI";
+  const WIFI_SSID = "Umacafemx_2.4G";
+  const WIFI_PASSWORD = "disfrutaDuma";
 
   document.getElementById('wifiSSIDText').textContent = WIFI_SSID;
 
@@ -449,7 +471,7 @@
         text: wifiString,
         width: 160,
         height: 160,
-        colorDark: "#493225",
+        colorDark: "#2b1d15",
         colorLight: "#ffffff"
       });
       qrRendered = true;
