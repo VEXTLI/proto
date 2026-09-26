@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>UMA — Enlaces</title>
+<meta name="description" content="UMA — menú, ubicación y redes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#493225;
+    --bg-deep:#2E1F17;
+    --text:#F5E9E1;
+    --text-muted:#C9B4A8;
+    --terracotta:#D38A77;
+    --terracotta-dark:#B5674F;
+    --mauve:#A5847D;
+    --blush:#E4C8C0;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{
+    margin:0;
+    min-height:100svh;
+    position:relative;
+    background:
+      radial-gradient(50% 40% at 15% 0%, rgba(211,138,119,0.18) 0%, transparent 60%),
+      radial-gradient(55% 45% at 100% 15%, rgba(165,132,125,0.16) 0%, transparent 60%),
+      radial-gradient(60% 50% at 50% 100%, rgba(228,200,192,0.10) 0%, transparent 65%),
+      linear-gradient(160deg, #3D2A20, var(--bg) 45%, var(--bg-deep));
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+
+  /* grano tipo piedra sobre todo el fondo */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:0.18;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.83 0 0 0 0 0.65 0 0 0 0 0.55 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* hojas tropicales de fondo */
+  .leaf{
+    position:fixed;
+    z-index:0;
+    pointer-events:none;
+    opacity:0.18;
+    filter:blur(0.3px);
+  }
+  .leaf svg{display:block; width:100%; height:100%;}
+  .leaf.tl{ top:-40px; left:-60px; width:230px; height:230px; color:var(--mauve); transform:rotate(-18deg); }
+  .leaf.tr{ top:-20px; right:-70px; width:200px; height:200px; color:var(--terracotta); transform:rotate(25deg) scaleX(-1); }
+  .leaf.br{ bottom:-60px; right:-50px; width:260px; height:260px; color:var(--terracotta); transform:rotate(-10deg); }
+  .leaf.bl{ bottom:20px; left:-80px; width:190px; height:190px; color:var(--mauve); transform:rotate(40deg) scaleX(-1); }
+
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  @keyframes floatBlob{
+    0%, 100%{transform:translate(0,0) rotate(0deg);}
+    50%{transform:translate(6px,-8px) rotate(6deg);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  main{
+    position:relative;
+    z-index:1;
+    max-width:420px;
+    margin:0 auto;
+    padding:52px 20px 60px;
+  }
+
+  h1{
+    font-family:'Fraunces', serif;
+    font-style:normal;
+    font-weight:600;
+    font-variation-settings:'opsz' 144;
+    font-size:42px;
+    text-align:center;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    margin:0 0 8px;
+    color:var(--blush);
+    animation:riseIn 0.6s 0.05s cubic-bezier(.2,.8,.2,1) both;
+  }
+
+  .tagline{
+    text-align:center;
+    font-size:13.5px;
+    font-weight:500;
+    color:var(--text-muted);
+    margin:0 0 34px;
+    animation:riseIn 0.6s 0.1s cubic-bezier(.2,.8,.2,1) both;
+  }
+
+  .links{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .link{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    width:100%;
+    border:none;
+    font:inherit;
+    text-align:left;
+    cursor:pointer;
+    padding:16px 18px;
+    border-radius:18px;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.35),
+      inset 0 -3px 6px rgba(0,0,0,0.18),
+      0 12px 26px -14px rgba(44,36,22,0.4);
+    transition:transform 0.18s cubic-bezier(.2,.8,.2,1), box-shadow 0.18s ease;
+    animation:riseIn 0.55s cubic-bezier(.2,.8,.2,1) both;
+    overflow:hidden;
+    color:#fff;
+  }
+  .link::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:0.5;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events:none;
+  }
+  .link::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.22) 45%, transparent 60%);
+    transform:translateX(-120%);
+    transition:transform 0.6s ease;
+  }
+  .link:hover::before{transform:translateX(120%);}
+  .link:hover{
+    transform:translateY(-3px) scale(1.01);
+    box-shadow:0 18px 32px -14px rgba(44,36,22,0.45);
+  }
+  .link:active{
+    transform:translateY(0) scale(0.97);
+  }
+
+  .links > *:nth-child(1){animation-delay:0.08s;}
+  .links > *:nth-child(2){animation-delay:0.12s;}
+  .links > *:nth-child(3){animation-delay:0.16s;}
+  .links > *:nth-child(4){animation-delay:0.20s;}
+  .links > *:nth-child(5){animation-delay:0.24s;}
+  .links > *:nth-child(6){animation-delay:0.28s;}
+
+  .link.menu{ background:linear-gradient(135deg, var(--terracotta), var(--bg)); }
+  .link.wa{ background:linear-gradient(135deg, var(--terracotta), var(--terracotta-dark)); }
+  .link.ig{ background:linear-gradient(135deg, var(--blush) 0%, var(--terracotta) 55%, var(--mauve) 100%); }
+  .link.wifi{ background:linear-gradient(135deg, var(--mauve), var(--bg)); }
+
+  .wifi-panel{
+    display:none;
+    margin-top:-2px;
+    padding:18px;
+    border-radius:18px;
+    background:linear-gradient(160deg, #FFFFFF, #FAF5E6);
+    box-shadow:0 12px 26px -16px rgba(44,36,22,0.35);
+    animation:riseIn 0.3s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .wifi-panel.open{display:block;}
+  .wifi-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:9px 0;
+    border-bottom:1px solid #EAD9D2;
+    font-size:14px;
+  }
+  .wifi-row:last-of-type{border-bottom:none;}
+  .wifi-label{color:var(--mauve); font-weight:500;}
+  .wifi-value{font-weight:700; color:var(--bg);}
+  .copy-btn{
+    border:none;
+    background:var(--bg);
+    color:#fff;
+    font-size:12px;
+    font-weight:600;
+    padding:6px 12px;
+    border-radius:999px;
+    cursor:pointer;
+  }
+  .copy-btn:active{transform:scale(0.96);}
+  .wifi-qr-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px solid #EAD9D2;
+  }
+  #wifi-qr{
+    padding:10px;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 6px 16px -8px rgba(44,36,22,0.3);
+  }
+  .wifi-hint{
+    font-size:11.5px;
+    color:var(--mauve);
+    text-align:center;
+    max-width:26ch;
+  }
+
+  .link.review{ background:linear-gradient(135deg, var(--mauve), var(--terracotta-dark)); }
+
+  .icon{
+    flex:0 0 auto;
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,255,255,0.22);
+  }
+  .icon svg{width:21px; height:21px;}
+
+  .link-text{flex:1; min-width:0;}
+  .link-title{
+    font-size:16px;
+    font-weight:700;
+    margin:0;
+    letter-spacing:0.01em;
+  }
+  .link-sub{
+    font-size:12.5px;
+    font-weight:500;
+    color:rgba(255,255,255,0.85);
+    margin:2px 0 0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .chevron{
+    flex:0 0 auto;
+    opacity:0.75;
+    transition:transform 0.18s ease;
+  }
+  .link:hover .chevron{
+    transform:translateX(3px);
+  }
+
+  footer{
+    text-align:center;
+    margin-top:44px;
+    font-size:11.5px;
+    font-weight:500;
+    color:var(--text-muted);
+    letter-spacing:0.04em;
+    animation:riseIn 0.6s 0.36s cubic-bezier(.2,.8,.2,1) both;
+  }
+</style>
+</head>
+<body>
+
+<div class="leaf tl" aria-hidden="true">
+  <svg viewBox="0 0 200 200" fill="currentColor">
+    <path d="M100 10C60 30 20 70 20 120c0 40 30 70 70 70 5 0 10 0 15-1-20-15-30-40-30-65 0-45 20-85 55-105-10-6-20-9-30-9z"/>
+    <path d="M100 10c35 15 60 55 60 100 0 35-15 65-40 80 25-5 45-20 55-45 15-35 5-85-30-115-15-13-30-20-45-20z"/>
+  </svg>
+</div>
+<div class="leaf tr" aria-hidden="true">
+  <svg viewBox="0 0 200 200" fill="currentColor">
+    <path d="M20 100c30-45 80-70 130-65 30 3 50 25 45 55-4 25-25 40-50 42 15-15 20-35 12-52-10-22-35-32-60-25-35 10-60 35-77 45z"/>
+    <path d="M20 100c10 30 35 50 65 55-20-5-35-20-40-42-6-28 8-55 35-70-40 5-70 25-60 57z"/>
+  </svg>
+</div>
+<div class="leaf br" aria-hidden="true">
+  <svg viewBox="0 0 220 220" fill="currentColor">
+    <path d="M20 200c10-70 55-125 120-140 40-9 70 12 68 48-2 30-28 48-58 46 20-14 28-38 15-58-16-25-50-30-78-14-42 24-62 75-67 118z"/>
+    <path d="M20 200c25-15 45-40 52-70 8-32-5-62-32-78 45 5 78 40 72 82-5 35-40 65-92 66z"/>
+  </svg>
+</div>
+<div class="leaf bl" aria-hidden="true">
+  <svg viewBox="0 0 200 200" fill="currentColor">
+    <path d="M190 120c-35-20-80-18-108 8-22 20-25 48-5 65 18 15 44 12 58-5-20 2-38-8-42-25-6-24 15-45 42-50 22-4 43 0 55 7z"/>
+    <path d="M190 120c-15 25-40 40-68 42 20-8 32-25 33-45 1-25-18-45-45-50 40-5 75 15 80 53z"/>
+  </svg>
+</div>
+
+<main>
+  <h1>Uma</h1>
+  <p class="tagline">Desayunos, panes, pizzas y más — Querétaro</p>
+
+  <div class="links">
+
+    <!-- MENÚ -->
+    <a class="link menu" href="https://vextli.github.io/UMA/">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M4 4v16M4 4h9a3 3 0 0 1 3 3v10a3 3 0 0 0-3-3H4"/>
+          <path d="M14 8h6M14 12h6M14 16h4"/>
+        </svg>
+      </span>
+      <span class="link-text">
+        <p class="link-title">Ver el menú</p>
+        <p class="link-sub">Carta completa</p>
+      </span>
+      <span class="chevron" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 6l6 6-6 6"/>
+        </svg>
+      </span>
+    </a>
+
+    <!-- 👉👉👉 WIFI: reemplaza el nombre de la red y la contraseña más abajo, en el <script> (busca WIFI_SSID y WIFI_PASSWORD) 👈👈👈 -->
+    <button class="link wifi" type="button" id="wifiToggle" aria-expanded="false" aria-controls="wifiPanel">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M2 8.5a16 16 0 0 1 20 0"/>
+          <path d="M5.5 12.5a11 11 0 0 1 13 0"/>
+          <path d="M9 16.5a6 6 0 0 1 6 0"/>
+          <circle cx="12" cy="19.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+      </span>
+      <span class="link-text">
+        <p class="link-title">Conéctate al WiFi</p>
+        <p class="link-sub">Red y contraseña</p>
+      </span>
+      <span class="chevron" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 6l6 6-6 6"/>
+        </svg>
+      </span>
+    </button>
+
+    <div class="wifi-panel" id="wifiPanel">
+      <div class="wifi-row">
+        <span class="wifi-label">Red</span>
+        <span class="wifi-value" id="wifiSSIDText">NOMBRE_DEL_WIFI</span>
+      </div>
+      <div class="wifi-row">
+        <span class="wifi-label">Contraseña</span>
+        <button class="copy-btn" type="button" id="copyPassBtn">Copiar</button>
+      </div>
+      <div class="wifi-qr-wrap">
+        <div id="wifi-qr"></div>
+        <p class="wifi-hint">Escanea con la cámara de tu celular para conectarte automático</p>
+      </div>
+    </div>
+
+    <!-- 👉👉👉 WHATSAPP: reemplaza el número (con código de país, sin espacios ni +) 👈👈👈 -->
+    <a class="link wa" href="https://wa.me/5215500000000" target="_blank" rel="noopener">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.4 5L2 22l5.2-1.4c1.5.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm5.8 14.2c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5.2.5.8 1.9.8 2.1.1.2.1.3 0 .5-.1.2-.1.3-.3.5l-.4.5c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.4.1.6-.1l.9-1c.2-.3.4-.2.7-.1.3.1 1.8.9 2.1 1 .3.1.5.2.6.3.1.2.1.9-.1 1.6z"/>
+        </svg>
+      </span>
+      <span class="link-text">
+        <p class="link-title">WhatsApp</p>
+        <p class="link-sub">Escríbenos</p>
+      </span>
+      <span class="chevron" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 6l6 6-6 6"/>
+        </svg>
+      </span>
+    </a>
+
+    <!-- 👉👉👉 INSTAGRAM: reemplaza el link (href) y el @usuario que se muestra abajo 👈👈👈 -->
+    <a class="link ig" href="https://instagram.com/uma" target="_blank" rel="noopener">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/>
+        </svg>
+      </span>
+      <span class="link-text">
+        <p class="link-title">Instagram</p>
+        <p class="link-sub">@uma</p> <!-- 👈 cambia también el @usuario que se muestra aquí -->
+      </span>
+      <span class="chevron" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 6l6 6-6 6"/>
+        </svg>
+      </span>
+    </a>
+
+    <!-- 👉👉👉 RESEÑA: reemplaza con tu link real de reseñas de Google (Google Business Profile → Compartir reseña) 👈👈👈 -->
+    <a class="link review" href="https://g.page/r/XXXXXXXXXXXX/review" target="_blank" rel="noopener">
+      <span class="icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.6l-5.9 3.1 1.2-6.6-4.8-4.6 6.6-.9L12 2.5z"/>
+        </svg>
+      </span>
+      <span class="link-text">
+        <p class="link-title">Déjanos tu reseña</p>
+        <p class="link-sub">En Google</p>
+      </span>
+      <span class="chevron" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 6l6 6-6 6"/>
+        </svg>
+      </span>
+    </a>
+
+  </div>
+
+  <footer>UMA · Querétaro</footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  // 👉👉👉 WIFI: reemplaza estos dos valores con los datos reales del WiFi 👈👈👈
+  const WIFI_SSID = "NOMBRE_DEL_WIFI";
+  const WIFI_PASSWORD = "CONTRASEÑA_AQUI";
+
+  document.getElementById('wifiSSIDText').textContent = WIFI_SSID;
+
+  function escapeWifi(str){
+    return str.replace(/([\\;,:"])/g, '\\$1');
+  }
+
+  let qrRendered = false;
+  const toggleBtn = document.getElementById('wifiToggle');
+  const panel = document.getElementById('wifiPanel');
+
+  toggleBtn.addEventListener('click', () => {
+    const isOpen = panel.classList.toggle('open');
+    toggleBtn.setAttribute('aria-expanded', String(isOpen));
+
+    if(isOpen && !qrRendered && typeof QRCode !== 'undefined'){
+      const wifiString = `WIFI:T:WPA;S:${escapeWifi(WIFI_SSID)};P:${escapeWifi(WIFI_PASSWORD)};;`;
+      new QRCode(document.getElementById('wifi-qr'), {
+        text: wifiString,
+        width: 160,
+        height: 160,
+        colorDark: "#493225",
+        colorLight: "#ffffff"
+      });
+      qrRendered = true;
+    }
+  });
+
+  const copyBtn = document.getElementById('copyPassBtn');
+  copyBtn.addEventListener('click', async () => {
+    try{
+      await navigator.clipboard.writeText(WIFI_PASSWORD);
+      const original = copyBtn.textContent;
+      copyBtn.textContent = '¡Copiado!';
+      setTimeout(() => { copyBtn.textContent = original; }, 1600);
+    }catch(err){
+      copyBtn.textContent = WIFI_PASSWORD;
+    }
+  });
+</script>
+
+</body>
+</html>
